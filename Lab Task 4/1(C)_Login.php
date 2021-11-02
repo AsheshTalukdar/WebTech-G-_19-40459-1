@@ -1,20 +1,46 @@
 
 <?php 
 	session_start();
+
+	$data=file_get_contents('data.json');
+	$decod_data=json_decode($data,true);
+	//var_dump($decod_data);
+
 	
-	$username = "admin";
-	$password ="admin#";
+	foreach ($decod_data as $key => $value) {
+		$un=$decod_data[$key]["username"];
+		$pass=$decod_data[$key]["Confirm Password"];
+
+		echo $un. ' is name and password is '.$pass;
+}
+
+	$username ='admin';
+	$password ='admin#';
 
 	if (isset($_POST['un'])) {
 		if ($_POST['un']==$username && $_POST['pass']==$password) {
 			$_SESSION['un'] = $username;
+			//$_SESSION['pass'] = $password;
+
 			header("location: 1(E)_Logged In Dashboard.php");
 		}
+		/*
+ 	if(isset($_POST['submit']))
+    {
+        if(!empty($_POST['username']) && !empty($_POST['password']))
+        {
+            $username="admin";
+            $password="admin#";
+
+			header("location: 1(E)_Logged In Dashboard.php");
+        }
+    }
+*/
 		else{
 			$msg = "Username or Password is incorrect";
 		}
-	}
-
+	
+}
 
  ?>
 
